@@ -1,0 +1,8 @@
+astar_313B
+bfs
+cc
+mcf_46B
+omnetpp_340B
+soplex_66B
+sphinx3_2520B
+xalancbmk_99B

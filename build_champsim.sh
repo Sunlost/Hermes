@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ "$(hostname)" =~ ^(jalad|darmok)$ ]]; then
+    echo "Don't build on jalad or darmok!!!"
+    exit
+fi
+
 if [ "$#" -ne 8 ]; then
     echo "Illegal number of parameters"
     echo "Usage: ./build_champsim.sh [core_uarch] [l1d_pref] [l2c_pref] [llc_pref] [llc_repl] [num_core] [num_dram_channels] [log_num_dram_channels]"
