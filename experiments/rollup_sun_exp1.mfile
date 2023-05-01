@@ -1,0 +1,10 @@
+ocp_perc_predict_called : sum
+Core_0_offchip_pred_true_pos : sum
+Core_0_offchip_pred_false_pos : sum
+Core_0_offchip_pred_false_neg : sum
+Core_0_offchip_pred_precision : sum
+Core_0_offchip_pred_recall : sum
+Core_0_L1D_hermes_pred_false_pos : sum
+Core_0_L1I_hermes_pred_false_pos : sum
+Core_0_L2C_hermes_pred_false_pos : sum
+Core_0_LLC_hermes_pred_false_pos : sum

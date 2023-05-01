@@ -100,6 +100,16 @@ class CACHE : public MEMORY {
             uint64_t data_load_miss_promoted_pseudo_hit;
         } pseudo_perfect;
 
+        // sun :) [
+        struct {
+            uint64_t hermes_pred_false_pos;
+            // uint64_t l1d_false_pos;
+            // uint64_t l1i_false_pos;
+            // uint64_t l2_false_pos;
+            // uint64_t llc_false_pos;
+        } sun;
+        // ]
+
     } stats;
     std::unordered_map<uint64_t, uint64_t> dependent_map;
 

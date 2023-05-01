@@ -2667,9 +2667,27 @@ void O3_CPU::offchip_pred_stats_and_train(uint32_t lq_index)
     {
         stats.offchip_pred.true_pos++;
     }
-    else if(LQ.entry[lq_index].went_offchip == 0 && LQ.entry[lq_index].went_offchip_pred == 1) // false negative
+    else if(LQ.entry[lq_index].went_offchip == 0 && LQ.entry[lq_index].went_offchip_pred == 1) // false positive
     {
         stats.offchip_pred.false_pos++;
+        // sun :) [ xx
+        // cout << "false positive detected...." << endl;
+        // if(LQ.entry[lq_index].l1d_fill == 1) {
+        //     stats.offchip_pred.l1d_false_pos++;
+        //     cout << "false pos -- l1d filled" << endl;
+        // } else if(LQ.entry[lq_index].l1i_fill == 1) {
+        //     stats.offchip_pred.l1i_false_pos++;
+        //     cout << "false pos -- l1i filled" << endl;
+        // } else if(LQ.entry[lq_index].l2_fill == 1) {
+        //     stats.offchip_pred.l2_false_pos++;
+        //     cout << "false pos -- l2 filled" << endl;
+        // } else if(LQ.entry[lq_index].llc_fill == 1) {
+        //     stats.offchip_pred.llc_false_pos++;
+        //     cout << "false pos -- llc filled" << endl;
+        // } else {
+        //     assert(0); // something is wrong.
+        // }
+        // ]
     }
     else if(LQ.entry[lq_index].went_offchip == 1 && LQ.entry[lq_index].went_offchip_pred == 0) // false negative
     {

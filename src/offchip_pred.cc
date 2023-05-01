@@ -85,6 +85,12 @@ void O3_CPU::dump_stats_offchip_predictor()
          << "Core_" << cpu << "_offchip_pred_false_neg " << stats.offchip_pred.false_neg << endl
          << "Core_" << cpu << "_offchip_pred_precision " << precision*100 << endl
          << "Core_" << cpu << "_offchip_pred_recall " << recall*100 << endl
+         // sun :) [ xx
+        //  << "Core_" << cpu << "_offchip_pred_l1d_false_pos " << stats.offchip_pred.l1d_false_pos << endl
+        //  << "Core_" << cpu << "_offchip_pred_l1i_false_pos " << stats.offchip_pred.l1i_false_pos << endl
+        //  << "Core_" << cpu << "_offchip_pred_l2_false_pos " << stats.offchip_pred.l2_false_pos << endl
+        //  << "Core_" << cpu << "_offchip_pred_llc_false_pos " << stats.offchip_pred.llc_false_pos << endl
+         // ]
          << endl;
 
     offchip_pred->dump_stats();

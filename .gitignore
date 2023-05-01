@@ -23,3 +23,9 @@ tools/optcache_driver
 tracer/obj-intel64/
 
 scripts/megatools*
+condorize.sh
+experiments/exp*
+experiments/base_no_hermes
+experiments/percep_hermes
+experiments/temp_work
+mcpat/mcpat

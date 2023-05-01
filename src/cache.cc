@@ -895,24 +895,60 @@ void CACHE::handle_read()
                 // update prefetcher on load instruction
 		        if (rq_entry.type == LOAD) 
                 {
+                    // sun :) [
+                    uint32_t lq_index = rq_entry.lq_index;
+                    if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred == 1) {
+                        stats.sun.hermes_pred_false_pos++;
+                    }
+                    // ]
 		            if(cache_type == IS_L1I)
                     {
+                        // sun :) [ xx
+                        // if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred == 1) {
+                        //     stats.sun.l1i_false_pos++;
+                        // }
+                        //ooo_cpu[read_cpu].LQ.entry[lq_index].l1i_fill = 1;
+                        // ]
 		                l1i_prefetcher_cache_operate(read_cpu, rq_entry.ip, 1, block[set][way].prefetch);
                     }
                     if (cache_type == IS_L1D) 
                     {
+                        // sun :) [ xx
+                        // if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred == 1) {
+                        //     stats.sun.l1d_false_pos++;
+                        // }
+                        //ooo_cpu[read_cpu].LQ.entry[lq_index].l1d_fill = 1;
+                        // ]
 		                l1d_prefetcher_operate(rq_entry.full_addr, rq_entry.ip, 1, rq_entry.type);
                     }
                     else if (cache_type == IS_L2C)
                     {
+                        // sun :) [ xx
+                        // if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred == 1) {
+                        //     stats.sun.l2_false_pos++;
+                        // }
+                        //ooo_cpu[read_cpu].LQ.entry[lq_index].l2_fill = 1;
+                        // ]
 		                l2c_prefetcher_operate(block[set][way].address<<LOG2_BLOCK_SIZE, rq_entry.ip, 1, rq_entry.type, 0);
                     }
                     else if (cache_type == IS_LLC)
                     {
+                        // sun :) [ xx
+                        // if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred == 1) {
+                        //     stats.sun.llc_false_pos++;
+                        // }
+                        //ooo_cpu[read_cpu].LQ.entry[lq_index].llc_fill = 1;
+                        // ]
                         cpu = read_cpu;
                         llc_prefetcher_operate(block[set][way].address<<LOG2_BLOCK_SIZE, rq_entry.ip, 1, rq_entry.type, 0);
                         cpu = 0;
+                    // sun :) [
+                    } else {
+                        if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred == 1) {
+                            stats.sun.hermes_pred_false_pos--;
+                        }
                     }
+                    // ]
                 }
 
                 // update replacement policy

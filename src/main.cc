@@ -437,6 +437,10 @@ void print_roi_stats(uint32_t cpu, CACHE *cache)
         << "Core_" << cpu << "_" << cache->NAME << "_eviction_all_reuse_max " << cache->stats.eviction.all_reuse_max << endl
         << "Core_" << cpu << "_" << cache->NAME << "_eviction_all_reuse_min " << cache->stats.eviction.all_reuse_min << endl
         << "Core_" << cpu << "_" << cache->NAME << "_eviction_all_reuse_avg " << (float)cache->stats.eviction.all_reuse_total / cache->stats.eviction.atleast_one_reuse << endl
+        // sun :) [
+        << endl
+        << "Core_" << cpu << "_" << cache->NAME << "_hermes_pred_false_pos " << cache->stats.sun.hermes_pred_false_pos << endl
+        // ]
         ;
     
 #ifdef PRINT_AUX_STATS

@@ -1,48 +1,19 @@
 #!/bin/bash
 
-# Check that args are correct
-if [ "$#" -ne 2 ]; then
-    echo "Incorrect # of arguments:"
-    echo "Usage: ./build.sh branch_predictor cache_replacement_policy"
-    exit
-fi
+PATH="/u/sun/cs395t/final_proj"
 
-# Simulation parameters
-CHAMP_PATH="$(pwd)"
-TRACE_DIR="/scratch/cluster/qduong/traces/champsim"
-WARM_INS=25
-SIM_INS=100
-BRANCH_PRED=$1
-CACHE_REPL=$2
-
-BINARY="bin/${BRANCH_PRED}_${CACHE_REPL}_champsim"
-OUTPUT_DIR="output/${BRANCH_PRED}_${CACHE_REPL}"
-
-# Ensure output dir exists
-if test ! -d ${OUTPUT_DIR}; then
-    mkdir -p ${OUTPUT_DIR}
-fi
-
-# Ensure binary exists
-if test ! -f ${BINARY} ; then
-    echo "No binary found for ${BRANCH_PRED}_${CACHE_REPL}"
-    echo "Build champsim before running it"
-    exit
-fi
-
-# Run our cache replacement policy / branch predictor on each trace
 while read TRACE; do
-    SCRIPT_FILE="${OUTPUT_DIR}/${TRACE}.sh"
-    CONDOR_FILE="${OUTPUT_DIR}/${TRACE}.condor"
+    SCRIPT_FILE="${TRACE}.sh"
+    CONDOR_FILE="${TRACE}.condor"
 
     # create script file
     echo "#!/bin/bash" > ${SCRIPT_FILE}
-    echo "${CHAMP_PATH}/${BINARY} -warmup_instructions ${WARM_INS}000000 -simulation_instructions ${SIM_INS}000000 -traces ${TRACE_DIR}/${TRACE}.trace.gz &> ${CHAMP_PATH}/${OUTPUT_DIR}/${TRACE}.txt" >> ${SCRIPT_FILE}
-    chmod +x ${SCRIPT_FILE}
+    echo "${PATH}/bin/stats_attempt_two --warmup_instructions=75000000 --simulation_instructions=300000000 --llc_replacement_type=ship --config=${PATH}/config/nopref.ini --num_rob_partitions=3 --rob_partition_size=64,128,320 --rob_frontal_partition_ids=0 --rob_dorsal_partition_ids=2 --config=${PATH}/config/ocp_hermes.ini --config=${PATH}/config/hermes_base.ini --ddrp_req_latency=6  -traces /scratch/cluster/qduong/gtraces/${TRACE} &> output/${TRACE}.out" >> ${SCRIPT_FILE}
+    /bin/chmod +x ${SCRIPT_FILE}
 
-    # create condor file
-    /u/qduong/traces/condorize.sh false ${OUTPUT_DIR} ${TRACE}
+    # # create condor file
+    /u/sun/cs395t/final_proj/condorize.sh false ${TRACE}
 
-    # submit the condor file
+    # # submit the condor file
     /lusr/opt/condor/bin/condor_submit ${CONDOR_FILE}
 done < traces.txt

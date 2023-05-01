@@ -582,6 +582,13 @@ class LSQ_ENTRY {
     uint8_t went_offchip_pred; // predicted to go off-chip
     ocp_base_feature_t *ocp_feature;
 
+    // sun :) [  xx
+    // uint8_t l1i_fill;
+    // uint8_t l1d_fill;
+    // uint8_t l2_fill;
+    // uint8_t llc_fill;
+    // ]
+
     // constructor
     LSQ_ENTRY() {
         instr_id = 0;
@@ -606,6 +613,13 @@ class LSQ_ENTRY {
         went_offchip = 0;
         went_offchip_pred = 0;
         ocp_feature = NULL;
+
+        // sun :) [ xx
+        // l1i_fill = 0;
+        // l1d_fill = 0;
+        // l2_fill = 0;
+        // llc_fill = 0;
+        // ]
 
 #if 0
         for (uint32_t i=0; i<ROB_SIZE; i++)

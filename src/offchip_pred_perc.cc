@@ -90,6 +90,7 @@ void OffchipPredPerc::dump_stats()
          << "ocp_perc_act_thresh_update_decrement " << stats.act_thresh_update.decrement << endl
          << "ocp_perc_act_thresh_update_max_observed_thresh " << stats.act_thresh_update.max_observed_thresh << endl
          << "ocp_perc_act_thresh_update_min_observed_thresh " << stats.act_thresh_update.min_observed_thresh << endl
+         << "HELLO PINEAPPLE SUN YIPPEE" << endl
          << endl;
 
     perc_pred->dump_stats();

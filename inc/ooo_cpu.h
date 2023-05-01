@@ -143,6 +143,12 @@ public:
             uint64_t true_pos;
             uint64_t false_pos;
             uint64_t false_neg;
+            // sun :) [ xx
+            // uint64_t l1d_false_pos;
+            // uint64_t l1i_false_pos;
+            // uint64_t l2_false_pos;
+            // uint64_t llc_false_pos;
+            // ]
         } offchip_pred;
 
         struct
