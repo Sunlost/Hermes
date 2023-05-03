@@ -440,6 +440,8 @@ void print_roi_stats(uint32_t cpu, CACHE *cache)
         // sun :) [
         << endl
         << "Core_" << cpu << "_" << cache->NAME << "_hermes_pred_false_pos " << cache->stats.sun.hermes_pred_false_pos << endl
+        << "Core_" << cpu << "_" << cache->NAME << "_hermes_mm_reqs_issued_from_L1 " << cache->stats.sun.hermes_mm_reqs_issued_from_L1 << endl
+        << "Core_" << cpu << "_" << cache->NAME << "_hermes_mm_reqs_blocked_by_L1_hit " << cache->stats.sun.hermes_mm_reqs_blocked_by_L1_hit << endl
         // ]
         ;
     

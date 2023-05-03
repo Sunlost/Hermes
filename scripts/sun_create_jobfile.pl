@@ -101,12 +101,12 @@ foreach $trace (@trace_info)
 		my $cmdline;
 		if($local)
 		{
-			$cmdline = "mycondor -- $exe $exp_knobs $trace_knobs -traces $trace_input";
+			$cmdline = "${trace_name}_${exp_name}, $exp_knobs $trace_knobs -traces $trace_input";
 			$count++;
-			if($count % $num_parallel)
-			{
-				$cmdline = $cmdline . ' &';
-			}
+			# if($count % $num_parallel)
+			# {
+			# 	$cmdline = $cmdline . ' &';
+			# }
 		}
 		else
 		{

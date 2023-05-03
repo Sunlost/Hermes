@@ -159,6 +159,10 @@ public:
             uint64_t dram_mshr_full;
         } ddrp;
 
+        struct {
+            uint64_t ddrp_requests_sent_from_ooo_cpu_cc;
+        } sun;
+
     } stats;
 
     // bubble stats per ROB partiton

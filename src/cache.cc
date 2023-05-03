@@ -914,10 +914,16 @@ void CACHE::handle_read()
                     if (cache_type == IS_L1D) 
                     {
                         // sun :) [ xx
+                        // // stats tracking attempt 1
                         // if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred == 1) {
                         //     stats.sun.l1d_false_pos++;
                         // }
                         //ooo_cpu[read_cpu].LQ.entry[lq_index].l1d_fill = 1;
+
+                        // L1-hit blocks main mem request experiment
+                        if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred && knob::enable_ddrp) {
+                            stats.sun.hermes_mm_reqs_blocked_by_L1_hit++;
+                        }
                         // ]
 		                l1d_prefetcher_operate(rq_entry.full_addr, rq_entry.ip, 1, rq_entry.type);
                     }
@@ -944,6 +950,7 @@ void CACHE::handle_read()
                         cpu = 0;
                     // sun :) [
                     } else {
+                        // undo the weird additions...? i think TLB...???
                         if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred == 1) {
                             stats.sun.hermes_pred_false_pos--;
                         }
@@ -1055,6 +1062,19 @@ void CACHE::handle_read()
                 }
                 else if ((mshr_index == -1) && (MSHR.occupancy < MSHR_SIZE)) // this is a new miss
                 { 
+                    // sun :) [
+                    // sunthought: OR if we check if it's the L2 we know it's translated...? not sure if
+                                // this function runs at the head or the tail end of the search penalty..
+                                // if we do L2 we also need to put one of these in the L2 hit case above
+                    uint32_t lq_index = rq_entry.lq_index;
+                    if(cache_type == IS_L1D)
+                    {
+                        if(ooo_cpu[read_cpu].LQ.entry[lq_index].went_offchip_pred && knob::enable_ddrp) {
+                            ooo_cpu[read_cpu].issue_ddrp_request(lq_index, 0);
+                            stats.sun.hermes_mm_reqs_issued_from_L1++;
+                        }
+                    }
+                    // ]
 		            if(cache_type == IS_LLC)
         		    {
 		                // check to make sure the DRAM RQ has room for this LLC read miss

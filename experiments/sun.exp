@@ -13,4 +13,7 @@ OCP_RANDOM = --config=$(HERMES_HOME)/config/ocp_random.ini
 HERMES_O = --config=$(HERMES_HOME)/config/hermes_base.ini --ddrp_req_latency=6
 HERMES_P = --config=$(HERMES_HOME)/config/hermes_base.ini --ddrp_req_latency=18
 
-hermes_o                $(BASE) $(OCP_PERC) $(HERMES_O)
+hermes_base_l1                $(BASE) $(OCP_PERC) $(HERMES_O)
+hermes_multicore_baseline     $(BASE) $(OCP_PERC) $(HERMES_O) --dram_io_freq=800
+hermes_multicore_l1           $(BASE) $(OCP_PERC) $(HERMES_O)
+hermes_base_baseline          $(BASE) $(OCP_PERC) $(HERMES_O)

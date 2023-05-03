@@ -103,6 +103,8 @@ class CACHE : public MEMORY {
         // sun :) [
         struct {
             uint64_t hermes_pred_false_pos;
+            uint64_t hermes_mm_reqs_issued_from_L1;
+            uint64_t hermes_mm_reqs_blocked_by_L1_hit;
             // uint64_t l1d_false_pos;
             // uint64_t l1i_false_pos;
             // uint64_t l2_false_pos;

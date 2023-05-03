@@ -2117,8 +2117,11 @@ void O3_CPU::complete_data_fetch(PACKET_QUEUE *queue, uint8_t is_it_tlb)
             // Thus we have the physical address. So now we can issue
             // a DDRP request, if this LQ entry is predicted to go offchip.
             if(LQ.entry[lq_index].went_offchip_pred && knob::enable_ddrp)
-            {
-                issue_ddrp_request(lq_index, 0);
+            {  
+                // sun :) [
+                stats.sun.ddrp_requests_sent_from_ooo_cpu_cc++;
+                //issue_ddrp_request(lq_index, 0);
+                // ]
             }
 
             DP (if (warmup_complete[cpu]) {
@@ -2221,7 +2224,10 @@ void O3_CPU::handle_merged_translation(PACKET *provider)
             // a DDRP request, if this LQ entry is predicted to go offchip.
             if(LQ.entry[merged].went_offchip_pred && knob::enable_ddrp)
             {
-                issue_ddrp_request(merged, 1);
+                // sun :) [
+                stats.sun.ddrp_requests_sent_from_ooo_cpu_cc++;
+                //issue_ddrp_request(merged, 1);
+                // ]
             }
 
             DP (if (warmup_complete[cpu]) {
